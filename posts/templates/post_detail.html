@@ -3,7 +3,12 @@
 {% block content %}
     <title>{% block head_title %}{{ objs.title }}|{{ block.super }}{% endblock %}</title>
     <div class="col-sm-6 col-sm-offset-3">
+        {% if objs.image %}
+            <img src="{{ objs.image.url }}" class="img-responsive"/>
+        {% endif %}
         <h1>{{ title }} <small>{{ objs.timestamp }}</small></h1>
+
         {{ objs.content |linebreaks }}<br>
     </div>
+
 {% endblock content %}
