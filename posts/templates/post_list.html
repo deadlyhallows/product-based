@@ -3,25 +3,25 @@
 {% block content %}
 <div class='col-sm-6 col-sm-offset-3'>
 <h1>{{ title }}</h1>
-    {% for obj in object_list %}
+    {% for obj1 in object_list %}
     <div class="row">
 
         <div class="col-sm-12 abc">
             <div class="thumbnail">
-                {% if obj.image %}
-                    <img src="{{ obj.image.url }}" class="img-responsive"/>
+                {% if obj1.image %}
+                    <img src="{{ obj1.image.url }}" class="img-responsive"/>
                 {% endif %}
              <div class="caption">
-                <h3><a href="{% url "posts:detail" id=obj.id %}">{{ obj.title }} <small>{{ obj.timestamp|timesince }}</small></a></h3>
-                <p>{{ obj.content |linebreaks|truncatechars:120}}</p>
-                 <p><a href="{% url "posts:detail" id=obj.id %}" class="btn btn-primary" role="button">View</a></p>
+                <h3><a href="{% url "posts:detail" id=obj1.id %}">{{ obj1.title }} <small>{{ obj1.timestamp|timesince }}</small></a></h3>
+                <p>{{ obj1.content |linebreaks|truncatechars:120}}</p>
+                 <p><a href="{% url "posts:detail" id=obj1.id %}" class="btn btn-primary" role="button">View</a></p>
              </div>
 
             </div>
         <br>
         </div>
     </div>
- {% endfor %}
+    {% endfor %}
 
 <div class="pagination">
     <span class="step-links">
