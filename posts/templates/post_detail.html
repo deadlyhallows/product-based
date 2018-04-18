@@ -1,15 +1,9 @@
 {% extends "base.html" %}
 
- {% block content %}
-  <title>{% block head_title %}{{ objs.title }}|{{ block.super }}{% endblock %}</title>
-
- <h1>{{ title }} </h1>
-
-    {{ objs.title}}<br>
-    {{ objs.content }}<br>
-    {{ objs.timestamp }}<br>
-    {{ objs.updated }}<br>
-    {{ objs.id }}<br>
-    {{ objs.pk }}<br>
-
- {% endblock content %}
+{% block content %}
+    <title>{% block head_title %}{{ objs.title }}|{{ block.super }}{% endblock %}</title>
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1>{{ title }} <small>{{ objs.timestamp }}</small></h1>
+        {{ objs.content |linebreaks }}<br>
+    </div>
+{% endblock content %}

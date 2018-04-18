@@ -1,1 +1,23 @@
-h1{ color:greenyellow;}
+h1{
+    color:grey;}
+
+small{
+    font-size: 14px;
+    color:darkgray;}
+
+.thumbnail {
+        outline-style:solid;
+        outline-color: rgba(220, 218, 206, 0.45);
+        border-radius: 1px;}
+
+.caption{
+    padding-top: 15px;
+    padding-bottom:5px;
+    padding-left: 10px;
+    padding-right: 10px;}
+
+form {
+    width: 500px;
+    margin: auto;
+    border: 2px solid #777;
+    padding: 20px;}

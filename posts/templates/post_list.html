@@ -3,15 +3,28 @@
 
 
 {% block content %}
-<h1>{{ title }} is working</h1>
+
+<div class="col-sm-6 col-sm-offset-3">
+<h1>{{ title }}</h1>
+<div class="row">
 
  {% for obj in object_list %}
-     <a href="{% url "posts:detail" id=obj.id %}">{{ obj.title}}</a><br>
-    {{ obj.content }}<br>
-    {{ obj.timestamp }}<br>
-    {{ obj.updated }}<br>
-    {{ obj.id }}<br>
-    {{ obj.pk }}<br>
 
+        <div class="col-sm-12 abc">
+            <div class="thumbnail">
+
+             <div class="caption">
+                <h3><a href="{% url "posts:detail" id=obj.id %}">{{ obj.title }} <small>{{ obj.timestamp|timesince }}</small></a></h3>
+                <p>{{ obj.content |linebreaks|truncatechars:120}}</p>
+                 <p><a href="{% url "posts:detail" id=obj.id %}" class="btn btn-primary" role="button">View</a></p>
+
+             </div>
+            </div>
+        <br>
+        </div>
  {% endfor %}
+
+</div>
+</div>
+
 {% endblock content %}

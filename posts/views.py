@@ -24,7 +24,7 @@ def post_list(request):
     queryset = Post.objects.all()
     context= {
         "object_list":queryset,
-        "title": "title"
+        "title": "LIST"
 
     }
 
