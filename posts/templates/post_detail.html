@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load urlify %}
 
 {% block content %}
     <title>{% block head_title %}{{ objs.title }}|{{ block.super }}{% endblock %}</title>
@@ -8,22 +9,27 @@
         {% endif %}
         <h1>{{ title }} <small>{{ objs.timestamp }}</small></h1>
 
+
+    {{ instance.content|urlify }}
+
+
+
     <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
     Facebook
     </a>
 
-    <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}">
+    <a href="https://twitter.com/home?status={{ instance.content|urlify }}%20{{ request.build_absolute_uri }}">
     Twitter
     </a>
 
     <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'></a>
 
 
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ instance.title }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}">
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ instance.title }}&summary={{ instance.content|urlify }}&source={{ request.build_absolute_uri }}">
     Linkedin
     </a>
 
-    <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ share_string }}.">Reddit</a>
+    <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ instance.content|urlify }}.">Reddit</a>
 
         {{ objs.content |linebreaks }}<br>
 
