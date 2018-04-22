@@ -7,10 +7,12 @@
         {% if objs.image %}
             <img src="{{ objs.image.url }}" class="img-responsive"/>
         {% endif %}
-        <h1>{{ title }} <small>{{ objs.timestamp }}</small></h1>
+        <h1>{{ title }} <small>{{ objs.timestamp|timesince }}</small></h1>
+        {% if request.user.get_full_name %}
+            <p>Author:{{ request.user.get_full_name }}</p>
+        {% endif %}
 
 
-    {{ instance.content|urlify }}
 
 
 
@@ -18,20 +20,21 @@
     Facebook
     </a>
 
-    <a href="https://twitter.com/home?status={{ instance.content|urlify }}%20{{ request.build_absolute_uri }}">
+    <a href="https://twitter.com/home?status={{ objs.content|urlify }}%20{{ request.build_absolute_uri }}">
     Twitter
     </a>
 
     <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'></a>
 
 
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ instance.title }}&summary={{ instance.content|urlify }}&source={{ request.build_absolute_uri }}">
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ objs.title }}&summary={{ objs.content|urlify }}&source={{ request.build_absolute_uri }}">
     Linkedin
     </a>
 
-    <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ instance.content|urlify }}.">Reddit</a>
+    <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ objs.content|urlify }}.">Reddit</a>
 
-        {{ objs.content |linebreaks }}<br>
+        {{ objs.content |truncatechars:80|linebreaks }}<br>
+
 
     </div>
 
