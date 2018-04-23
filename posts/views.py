@@ -10,8 +10,10 @@ from .forms import PostForm
 # Create your views here.
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
-    if not request.user.is_staff or request.user.is_superuser:
+    print("awanti")
+    if not request.user.is_authenticated():
         raise Http404
+
     if form.is_valid() == True:
         instance=form.save(commit=False)
         instance.user = request.user
@@ -57,7 +59,7 @@ def post_detail(request,slug=None):
 
 
 def post_update(request,slug=None):
-    if not request.user.is_staff or request.user.is_superuser:
+    if not request.user.is_authenticated():
         raise Http404
     instance = get_object_or_404(Post, slug=slug)
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
@@ -76,7 +78,7 @@ def post_update(request,slug=None):
 
 
 def post_delete(request, slug=None):
-    if not request.user.is_staff or request.user.is_superuser:
+    if not request.user.is_authenticated():
         raise Http404
     instance = get_object_or_404(Post, slug=slug)
     instance.delete()
