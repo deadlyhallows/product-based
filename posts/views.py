@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post
 from django.contrib import messages
 from .forms import PostForm
-
+from django.db.models import Q
 # Create your views here.
 
 def post_create(request):
@@ -36,6 +36,14 @@ def post_list(request):
     if request.user.is_authenticated:
         queryset_list=Post.objects.all()
     #.order_by("-timestamp")
+    # type=input,value=output in form
+    query = request.GET.get("q")
+    if query:
+        queryset_list = queryset_list.filter( Q(title__icontains=query)|
+                                              Q(content__icontains=query)|
+                                              Q(user__first_name__icontains=query)|
+                                              Q(user__last_name__icontains=query)
+                                              ).distinct()
     paginator = Paginator(queryset_list, 5)
     page_change_var = 'page'  #change=request
     page = request.GET.get(page_change_var)
