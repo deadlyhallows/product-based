@@ -4,6 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+
 # Create your models here.
 
 def upload_location(instance,filename):
@@ -19,9 +20,10 @@ class Post(models.Model):
         height_field="height_field",
         width_field="width_field")
     height_field=models.IntegerField(default=None,null=True,blank=True)
-
     width_field=models.IntegerField(default=None,null=True,blank=True)
     content = models.TextField()
+    draft = models.BooleanField(default=False)
+    publish = models.DateField(auto_now_add=False,auto_now=False)
     timestamp = models.DateField(auto_now=False,auto_now_add=True)
     updated = models.DateField(auto_now=True,auto_now_add=False)
 

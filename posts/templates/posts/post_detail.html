@@ -7,7 +7,7 @@
         {% if objs.image %}
             <img src="{{ objs.image.url }}" class="img-responsive"/>
         {% endif %}
-        <h1>{{ title }} <small>{{ objs.timestamp|timesince }}</small></h1>
+        <h1>{{ title }} {% if objs.draft %}<span style="color:red">Draft</span> {% endif %}<small>{{ objs.publish }}</small></h1>
         {% if objs.user.get_full_name %}
             <p>Author:{{ objs.user.get_full_name }}</p>
         {% endif %}

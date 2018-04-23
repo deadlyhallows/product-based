@@ -8,6 +8,7 @@ from django.contrib import messages
 from .forms import PostForm
 
 # Create your views here.
+
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
     print("awanti")
@@ -21,7 +22,7 @@ def post_create(request):
         messages.success(request,"created successfully")
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
-        messages.error(request,"not created")
+        messages.error(request,"not created at all")
     context = {"form": form}
 
     return render(request, "posts/post_create.html", context)

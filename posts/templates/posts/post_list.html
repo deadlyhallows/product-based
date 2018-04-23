@@ -12,7 +12,7 @@
                     <img src="{{ obj1.image.url }}" class="img-responsive"/>
                 {% endif %}
              <div class="caption">
-                <h3><a href=" {{ obj.get_absolute_url }} ">{{ obj1.title }} <small>{{ obj1.timestamp|timesince }}</small></a></h3>
+                <h3><a href=" {{ obj.get_absolute_url }} ">{{ obj1.title }} <small>{{ obj1.publish }}</small></a></h3>
                  {% if obj1.user.get_full_name %}<p>Author:{{ obj1.user.get_full_name }}</p>{% endif %}
                 <p>{{ obj1.content |linebreaks|truncatechars:120}}</p>
                  <p><a href="{% url "posts:detail" slug=obj1.slug %}" class="btn btn-primary" role="button">View</a></p>
