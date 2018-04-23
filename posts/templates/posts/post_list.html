@@ -12,6 +12,7 @@
                     <img src="{{ obj1.image.url }}" class="img-responsive"/>
                 {% endif %}
              <div class="caption">
+                 {% if obj1.draft %} <h3>Staff Only:Draft</h3> {%  endif  %} {% if obj1.publish > today %}<h3>Staff Only:Future Post</h3>{% endif %}
                 <h3><a href=" {{ obj.get_absolute_url }} ">{{ obj1.title }} <small>{{ obj1.publish }}</small></a></h3>
                  {% if obj1.user.get_full_name %}<p>Author:{{ obj1.user.get_full_name }}</p>{% endif %}
                 <p>{{ obj1.content |linebreaks|truncatechars:120}}</p>
