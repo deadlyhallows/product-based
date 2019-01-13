@@ -66,3 +66,48 @@ class UserCreateSerializer(ModelSerializer):
         user_obj.save()
         return validated_data
 
+class UserDetailSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'first_name',
+            'last_name'
+
+        )
+
+class UserLoginSerializer(ModelSerializer):
+    token = CharField(allow_blank=True, read_only=True)
+    username = CharField(required=False, allow_blank=True)
+    email = EmailField(label='Email Address', required=False, allow_blank=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'email',
+            'password',
+            'token'
+        )
+        extra_kwargs = {'password':
+                            {'write_only': True}
+                        }
+
+    def validate(self, data):
+        user_obj = None
+        username = data['username']
+        email = data['email']
+        password = data['password']
+        if not email and not username:
+            raise ValidationError("Username or Email is required.")
+        user = User.objects.filter(Q(email=email) | Q(username=username)).distinct()
+        user = user.exclude(email__isnull=True).exclude(email__iexact='')
+        if user.exists() and user.count() == 1:
+            user_obj = user.first()
+        else:
+            raise ValidationError("This username/email is not valid.")
+        if user_obj:
+            if user_obj.check_password(password):
+                raise ValidationError("The password is not valid.")
+        data['token'] = "token"
+        return data

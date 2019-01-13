@@ -3,7 +3,7 @@ from rest_framework.serializers import (
     HyperlinkedIdentityField,
     SerializerMethodField
 )
-# from accounts.api.serializers import UserDetailSerializer
+from accounts.api.serializers import UserDetailSerializer
 from posts.models import Post
 
 
@@ -22,7 +22,7 @@ post_detail_url = HyperlinkedIdentityField(
 
 class PostDetailSerializer(ModelSerializer):
     url = post_detail_url
-    user = SerializerMethodField()
+    user = UserDetailSerializer()
     image = SerializerMethodField()
     html = SerializerMethodField()
     class Meta:
@@ -37,8 +37,7 @@ class PostDetailSerializer(ModelSerializer):
             'image',
             'html'
         )
-    def get_user(self, obj):
-        return str(obj.user.username)
+    
 
     def get_image(self, obj):
         try:
