@@ -1,4 +1,4 @@
-#!/home/awanti/PycharmProjects/product/venv/bin/python
+#!/home/awanti/PycharmProjects/product-based/venv/bin/python
 from django.core import management
 
 if __name__ == "__main__":
