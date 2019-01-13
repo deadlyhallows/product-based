@@ -27,13 +27,14 @@ from posts.api.serializers import (
 
 )
 
+
 class PostCreateApiView(CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
 
-
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
 
 class PostDetailApiView(RetrieveAPIView):
     queryset = Post.objects.all()
@@ -59,6 +60,8 @@ class PostListApiView(ListAPIView):
             ).distinct()
         return queryset_list
 
+
+# in this we assign the user to the post as author and also populate the post form while updating
 class PostUpdateApiView(RetrieveUpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
@@ -67,6 +70,7 @@ class PostUpdateApiView(RetrieveUpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
+
 
 class PostDestroyApiView(DestroyAPIView):
     queryset = Post.objects.all()
