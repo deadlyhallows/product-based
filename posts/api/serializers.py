@@ -37,7 +37,7 @@ class PostDetailSerializer(ModelSerializer):
             'image',
             'html'
         )
-    
+
 
     def get_image(self, obj):
         try:
