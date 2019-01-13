@@ -22,10 +22,18 @@ from .permissions import IsOwnerOrReadOnly
 from posts.models import Post
 from posts.api.serializers import (
     PostListSerializer,
-    # PostDetailSerializer,
+    PostDetailSerializer,
     # PostCreateUpdateSerializer,
 
 )
+
+
+class PostDetailApiView(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostDetailSerializer
+    lookup_field = 'slug'
+
+
 class PostListApiView(ListAPIView):
     serializer_class = PostListSerializer
     search_filters = [SearchFilter, OrderingFilter]

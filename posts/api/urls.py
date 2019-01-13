@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from .views import (
 	PostListApiView,
-    # PostDetailApiView,
+    PostDetailApiView,
     # PostCreateApiView,
     # PostUpdateApiView,
     # PostDestroyApiView
@@ -12,4 +12,5 @@ from .views import (
 
 urlpatterns = [
 	url(r'^$', PostListApiView.as_view(), name='list'),
+    url(r'^(?P<slug>[\w-]+)/$', PostDetailApiView.as_view(), name='detail'),
 ]
