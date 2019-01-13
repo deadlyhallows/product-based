@@ -23,10 +23,17 @@ from posts.models import Post
 from posts.api.serializers import (
     PostListSerializer,
     PostDetailSerializer,
-    # PostCreateUpdateSerializer,
+    PostCreateUpdateSerializer,
 
 )
 
+class PostCreateApiView(CreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostCreateUpdateSerializer
+
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class PostDetailApiView(RetrieveAPIView):
     queryset = Post.objects.all()
@@ -51,3 +58,18 @@ class PostListApiView(ListAPIView):
                 Q(user__last_name__icontains=query)
             ).distinct()
         return queryset_list
+
+class PostUpdateApiView(RetrieveUpdateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostCreateUpdateSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = 'slug'
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
+class PostDestroyApiView(DestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostDetailSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = 'slug'
